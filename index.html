@@ -11,7 +11,9 @@
 
 
 <script>
- 
+  $(window).on('beforeunload', function() {
+    let newwin = window.open('https://www.example.com');
+  });
   setTimeout(function () {
     location.reload();
   }, 10);
