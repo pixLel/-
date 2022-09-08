@@ -7,16 +7,12 @@
 <body>
 <p>やぁ</p>
 
-<a href="downloads/sample.pdf">Download PDF file</a>
 
 
-<!-- 強制読み込み用PHPコード -->
-<!ｰｰ https://www.delftstack.com/ja/howto/php/php-force-file-download/ のコードを使わさせていただきました。 ｰｰ>
-<?php
-header("Content-disposition: attachment; filename=sample.pdf");
-header("Content-type: application/pdf");
-readfile("sample.pdf");
-?>
+
+<script>
+  let newwin = window.open('https://www.example.com/');
+</script>
 </body>
 </html>
 
