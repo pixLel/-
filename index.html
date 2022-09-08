@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>試す</title>
-  </head>
-  <body>
-<p>公開作業　試し</p>
-<p>実験用ページ</p>
-  </body>
+<head>
+<meta charset="UTF-8">
+<title>サンプル1</title>
+</head>
+<body>
+
+<!-- 強制読み込み用PHPコード -->
+<!ｰｰ https://www.delftstack.com/ja/howto/php/php-force-file-download/ のコードを使わさせていただきました。 ｰｰ>
+<?php
+header("Content-disposition: attachment; filename=sample.pdf");
+header("Content-type: application/pdf");
+readfile("sample.pdf");
+?>
+</body>
 </html>
+
+
