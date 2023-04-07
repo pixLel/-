@@ -1,23 +1,44 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>サンプル1</title>
-</head>
-<body>
-<p>ばななぁぁぁぁ</p>
-
-
-
-
-<script>
-
-  setTimeout(function () {
-    location.reload();
-    let newwin = window.open('https://www.example.com');
-  }, 10);
+<!DOCTYPE html><html labg="ja"><head><meta charset="utf-8" /><meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+  <title>ゆによんく</title>
+  <link rel="shortcut icon" type="image/x-icon" href="https://object-storage.tyo1.conoha.io/v1/nc_df3bdbc45bc04950b558834f5728517a/unityroom_production/template/favicon.png" /><link rel="stylesheet" media="screen" href="https://object-storage.tyo1.conoha.io/v1/nc_df3bdbc45bc04950b558834f5728517a/unityroom_production/template/play.css" /><link rel="stylesheet" media="screen" href="https://object-storage.tyo1.conoha.io/v1/nc_df3bdbc45bc04950b558834f5728517a/unityroom_production/template/20xx/style.css" /><script src="https://object-storage.tyo1.conoha.io/v1/nc_df3bdbc45bc04950b558834f5728517a/unityroom_production/template/20xx/UnityProgress.js"></script><script src="UnityLoader.js"></script><script type="text/javascript">var gameInstance = UnityLoader.instantiate("gameContainer", "webgl.json", {onProgress: UnityProgress});</script></head><body><div class="webgl-content"><div id="gameContainer"></div></div><script crossorigin="anonymous" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" src="https://code.jquery.com/jquery-3.1.1.min.js"></script><script src="https://object-storage.tyo1.conoha.io/v1/nc_df3bdbc45bc04950b558834f5728517a/unityroom_production/template/play.js"></script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-76130120-2', 'auto');
+  ga('send', 'pageview');
 </script>
-</body>
-</html>
+<script>'use strict';
 
+var getCanvasScreenshot = function getCanvasScreenshot(callback) {
+    var originalCanvas = document.querySelector('canvas');
+    var stream = originalCanvas.captureStream(0);
+    var dummyVideo = document.createElement('video');
+    dummyVideo.src = URL.createObjectURL(stream);
 
+    var timer = setInterval(function () {
+        var dummyCanvas = document.createElement('canvas');
+        dummyCanvas.height = originalCanvas.height;
+        dummyCanvas.width = originalCanvas.width;
+        var context = dummyCanvas.getContext('2d');
+        context.drawImage(dummyVideo, 0, 0);
+        var imageData = context.getImageData(0, 0, 1, 1);
+        if (imageData.data[3] !== 0) {
+            callback(dummyCanvas.toDataURL());
+            clearInterval(timer);
+        }
+    }, 100);
+};
+
+// iframe外から呼ばれる。
+window.addEventListener('message', function (event) {
+    if (event.data == "HasCaptureScreenshot") {
+        event.source.postMessage("HasCaptureScreenshot", event.origin);
+    }
+    if (event.data == "CaptureScreenshot") {
+        var callback = function callback(base64url) {
+            event.source.postMessage(base64url, event.origin);
+        };
+        getCanvasScreenshot(callback);
+    }
+}, false);</script></body></html>
